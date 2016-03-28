@@ -1,0 +1,19 @@
+{
+    "name": "XPictureTool2",
+    "version": "1.0",
+    "permissions": ["tabs", "http://*/", "https://*/"],
+    "description": "XPictureTool是一款筛选图片的Chrome插件。",
+    "icons": {
+        "32": "icon.png",
+        "128": "icon.png"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+    "manifest_version": 2
+
+}

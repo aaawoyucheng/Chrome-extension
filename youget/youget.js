@@ -1,0 +1,1 @@
+window.location.href="you-get://"+document.URL;
