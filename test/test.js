@@ -1,0 +1,1 @@
+document.title=$('.bc-box h2').text()+$('.on .lessonmbers').text()+$('.on h2 a').text()
