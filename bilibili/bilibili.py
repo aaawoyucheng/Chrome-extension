@@ -7,16 +7,13 @@ import urllib.request as request
 from bs4 import BeautifulSoup as bs
 
 
-
 def getHtml(url):
     cookie = r"DedeUserID=55006; DedeUserID__ckMd5=1f8e6670f4580ed5; SESSDATA=913a91eb%2C1456235502%2Ce3e7c6d1; "
     opener = request.build_opener()
     opener.addheaders.append(("Cookie", "%s" % cookie))
     opener.addheaders.append(('Accept-encoding', 'gzip'))
-    return gzip.decompress(opener.open(url).read()).decode('utf-8')
+    return gzip.decompress(opener.open(url).read()).decode('utf-8').encode('gbk','ignore').decode('gbk')
 if __name__ == '__main__':
-    # url = "http://www.bilibili.com/video/av3031338"
-    url = "http://www.bilibili.com/video/av3799447/index_8.html"
     if len(sys.argv) > 1:
         url = sys.argv[1].replace("bilibili://", "")
     html = getHtml(url)

@@ -14,7 +14,7 @@
     },
     "page_action": {
         "default_icon": "icon.png",
-        "default_title": "下载当前视频"
+        "default_title": "下载"
     },
     "background": {
         "scripts": ["background.js"]
