@@ -123,7 +123,7 @@ def bilibili_live_download_by_cid(cid, title, output_dir='.', merge=True, info_o
 
 def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs):
     headers = {
-        'Cookie': 'DedeUserID=55006; DedeUserID__ckMd5=1f8e6670f4580ed5; SESSDATA=913a91eb%2C1459076670%2C9083f44f;'
+        'Cookie': 'DedeUserID=55006; DedeUserID__ckMd5=1f8e6670f4580ed5; SESSDATA=913a91eb%2C1460279449%2C955910bd; '
     }
     html = get_content(url,headers=headers)
 
@@ -186,9 +186,9 @@ def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs
             print('Skipping danmaku.')
             return
         title = get_filename(title)
-        print('Downloading %s ...\n' % (title + '.cmt.xml'))
+        print('Downloading %s ...\n' % (title + '.xml'))
         xml = get_srt_xml(cid)
-        with open(os.path.join(output_dir, title + '.cmt.xml'), 'w', encoding='utf-8') as x:
+        with open(os.path.join(output_dir, title + '.xml'), 'w', encoding='utf-8') as x:
             x.write(xml)
 
 
