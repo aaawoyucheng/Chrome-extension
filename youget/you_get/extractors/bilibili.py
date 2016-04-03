@@ -123,7 +123,7 @@ def bilibili_live_download_by_cid(cid, title, output_dir='.', merge=True, info_o
 
 def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs):
     headers = {
-        'Cookie': 'DedeUserID=55006; DedeUserID__ckMd5=1f8e6670f4580ed5; SESSDATA=913a91eb%2C1460279449%2C955910bd; '
+        'Cookie': 'DedeUserID=55006; DedeUserID__ckMd5=1f8e6670f4580ed5; SESSDATA=913a91eb%2C1460279449%2C955910bd; rlc_time=1459674656238;'
     }
     html = get_content(url,headers=headers)
 
@@ -164,7 +164,7 @@ def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs
                                          merge=merge,
                                          info_only=info_only)
         else:
-            title = r1(r'<option value=.* selected>(.+)</option>',
+            title = title+r1(r'<option value=.* selected>(.+)</option>',
                        html) or title
             bilibili_download_by_cid(
                 cid, title, output_dir=output_dir, merge=merge, info_only=info_only)
