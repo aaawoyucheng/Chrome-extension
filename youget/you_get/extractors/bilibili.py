@@ -129,30 +129,37 @@ def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs
             bilibili_live_download_by_cid(cid, title, output_dir=output_dir, merge=merge, info_only=info_only)
 
         else:
+            # # multi-P
+            # cids = []
+            # pages = re.findall('<option value=\'([^\']*)\'', html)
+            # titles = re.findall('<option value=.*>(.+)</option>', html)
+            # for page in pages:
+            #     html = get_html("http://www.bilibili.com%s" % page)
+            #     flashvars = r1_of([r'(cid=\d+)',
+            #                        r'flashvars="([^"]+)"',
+            #                        r'"https://[a-z]+\.bilibili\.com/secure,(cid=\d+)(?:&aid=\d+)?"'], html)
+            #     if flashvars:
+            #         t, cid = flashvars.split('=', 1)
+            #         cids.append(cid.split('&')[0])
+            # # no multi-P
+            # if not pages:
+            #     cids = [cid]
+            #     titles = [r1(r'<option value=.* selected>(.+)</option>', html) or title]
+
+            # for i in range(len(cids)):
+            #     bilibili_download_by_cid(cids[i],
+            #                              titles[i],
+            #                              output_dir=output_dir,
+            #                              merge=merge,
+            #                              info_only=info_only)
             # multi-P
-            cids = []
-            pages = re.findall('<option value=\'([^\']*)\'', html)
-            titles = re.findall('<option value=.*>(.+)</option>', html)
-            for page in pages:
-                html = get_html("http://www.bilibili.com%s" % page)
-                flashvars = r1_of([r'(cid=\d+)',
-                                   r'flashvars="([^"]+)"',
-                                   r'"https://[a-z]+\.bilibili\.com/secure,(cid=\d+)(?:&aid=\d+)?"'], html)
-                if flashvars:
-                    t, cid = flashvars.split('=', 1)
-                    cids.append(cid.split('&')[0])
-
-            # no multi-P
-            if not pages:
-                cids = [cid]
-                titles = [r1(r'<option value=.* selected>(.+)</option>', html) or title]
-
-            for i in range(len(cids)):
-                bilibili_download_by_cid(cids[i],
-                                         titles[i],
-                                         output_dir=output_dir,
-                                         merge=merge,
-                                         info_only=info_only)
+            if len(re.findall('<option value=.*>(.+)</option>', html))>0:
+                title = title+r1(r'<option value=.* selected>(.+)</option>', html) or title
+            bilibili_download_by_cid(cid,
+                                     title,
+                                     output_dir=output_dir,
+                                     merge=merge,
+                                     info_only=info_only)
 
     elif t == 'vid':
         sina_download_by_vid(cid, title=title, output_dir=output_dir, merge=merge, info_only=info_only)
@@ -168,9 +175,9 @@ def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs
             print('Skipping danmaku.')
             return
         title = get_filename(title)
-        print('Downloading %s ...\n' % (title + '.cmt.xml'))
+        print('Downloading %s ...\n' % (title + '.xml'))
         xml = get_srt_xml(cid)
-        with open(os.path.join(output_dir, title + '.cmt.xml'), 'w', encoding='utf-8') as x:
+        with open(os.path.join(output_dir, title + '.xml'), 'w', encoding='utf-8') as x:
             x.write(xml)
 
 site_info = "bilibili.com"
