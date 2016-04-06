@@ -12,6 +12,7 @@ import hashlib
 import re
 
 appkey='8e9fc618fbd41e28'
+headers={'Cookie':'DedeUserID=55006; DedeUserID__ckMd5=1f8e6670f4580ed5; SESSDATA=913a91eb%2C1460279449%2C955910bd;'}
 
 def get_srt_xml(id):
     url = 'http://comment.bilibili.com/%s.xml' % id
@@ -75,6 +76,7 @@ def bilibili_download_by_cids(cids, title, output_dir='.', merge=True, info_only
         size += temp
 
     print_info(site_info, title, type_, size)
+    print(output_dir)
     if not info_only:
         download_urls(urls, title, type_, total_size=None, output_dir=output_dir, merge=merge)
 
@@ -95,6 +97,7 @@ def bilibili_download_by_cid(cid, title, output_dir='.', merge=True, info_only=F
         log.wtf('[Failed] DNS not resolved. Please change your DNS server settings.')
 
     print_info(site_info, title, type_, size)
+    print(output_dir)
     if not info_only:
         download_urls(urls, title, type_, total_size=None, output_dir=output_dir, merge=merge)
 
@@ -106,12 +109,12 @@ def bilibili_live_download_by_cid(cid, title, output_dir='.', merge=True, info_o
         _, type_, _ = url_info(url)
         size = 0
         print_info(site_info, title, type_, size)
+        print(output_dir)
         if not info_only:
             download_urls([url], title, type_, total_size=None, output_dir=output_dir, merge=merge)
 
 def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs):
-    html = get_content(url)
-
+    html = get_content(url,headers=headers)
     title = r1_of([r'<meta name="title" content="([^<>]{1,999})" />',
                    r'<h1[^>]*>([^<>]+)</h1>'], html)
     if title:
@@ -152,7 +155,6 @@ def bilibili_download(url, output_dir='.', merge=True, info_only=False, **kwargs
             #                              output_dir=output_dir,
             #                              merge=merge,
             #                              info_only=info_only)
-            # multi-P
             if len(re.findall('<option value=.*>(.+)</option>', html))>0:
                 title = title+r1(r'<option value=.* selected>(.+)</option>', html) or title
             bilibili_download_by_cid(cid,
