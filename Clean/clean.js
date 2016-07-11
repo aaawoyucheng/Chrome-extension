@@ -1,16 +1,21 @@
-if (document.URL.match('lengxiaohua')) {
-    document.title = $('.title').text();
-    $('.left_wrap').parents().slice(0, -2).siblings().remove();
-    $('.right_wrap,.nav_wrap').remove();
+var showOnly = function(dom) {
+    $(dom).siblings().hide();
+    $(dom).parents().siblings().hide();
+    $(dom).parents().css('max-width', $(dom).width() + 'px');
+    $(dom).css('margin', 'auto');
+    $(dom).parents().css('margin', 'auto');
 }
-if (document.URL.match('jikexueyuan')) {
-    if ($('.head-catalog li').size() > 0) {
-        document.title = $('.head-catalog li').last().text();
-    }
-    $('.detail-wrapper').css('padding', '0');
-    $('.detail-left,.detail-headfix,#jkcomments').remove();
+var del = function(dom) {
+    $(dom).remove();
+}
+var cssInsert = function(style) {
+    $("<style>" + style + "</style>").appendTo('head')
 }
 if (document.URL.match('http://tieba.baidu.com/')) {
-    $('#j_p_postlist').parents().slice(0,-2).siblings().remove();
-    $('.d_author,.j_lzl_wrapper,.thread_recommend ,.share_btn_wrapper').remove();
+    cssInsert('#j_core_title_wrap{position:static!important;}');
+    showOnly('#container');
+    del('.right_section,.card_top_wrap,#tb_nav,.d_author,#tb_rich_poster_container,#footer,.share_btn_wrapper');
+    $('.d_post_content').css('font-size', '18px');
+    $('.pb_content,.content,#container,.wrap2,#thread_theme_5,#thread_theme_7,.pb_footer,.wrap1').width(740);
+    $('.core_reply,.core_reply_tail,.j_lzl_container,.p_content').width(700);
 }

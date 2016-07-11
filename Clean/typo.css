@@ -1,7 +1,7 @@
 @charset "utf-8";
-p {
-    font: 300 20px 微软雅黑!important;
-    text-align: adjust!important;
+p ,p>span,.postContent{
+    font: 100 20px/1.8 Lantinghei SC,微软雅黑,PingFang SC, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans!important;/**/
+    text-align: justify!important;
 }
 
 
@@ -11,9 +11,6 @@ pre,
 code,
 pre tt {
     font-family: Courier, "Courier New", monospace;
-}
-
-pre {
     /*background: #f8f8f8;*/
     /*border: 1px solid #ddd;*/
     font: 300 18px 微软雅黑!important;
@@ -120,8 +117,9 @@ body,
 button,
 input,
 select,
-textarea {
-    font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans;
+textarea{
+    font: 100 16px/1.8 /*微软雅黑,Lantinghei SC,*/PingFang SC, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans!important;
+    text-align: justify!important;
 }
 
 button::-moz-focus-inner,

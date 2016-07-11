@@ -1,1 +1,3 @@
-window.location.href="you-get://"+document.URL;
+var url="you-get://"+document.URL;
+// alert(url);
+window.location.href=url;

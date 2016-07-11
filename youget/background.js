@@ -1,4 +1,4 @@
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.browserAction.onClicked.addListener(function() {
     chrome.tabs.executeScript({
         file: 'youget.js'
     })

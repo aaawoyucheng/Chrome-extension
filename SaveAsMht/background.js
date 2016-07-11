@@ -5,7 +5,7 @@
     }, function(blob) {
         var options = {
             url: URL.createObjectURL(blob),
-            filename: 'mht/'+tab.title.replace(/\/|\?|:|~/ig,'') + '.mht',
+            filename: 'mht/'+tab.title.replace(/\/|\?|:|~|\|/ig,'') + '.mht',
             conflictAction: 'overwrite',
             saveAs: false,
         }
