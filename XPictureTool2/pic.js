@@ -21,7 +21,8 @@ function addImage(obj) {
         img.css({
             'border-radius': '5px',
             'max-width': '720px',
-            'display': 'block'
+            'display': 'block',
+            'margin':'auto'
         });
         $("<div class='display_img'></div>")
             .append(img)
