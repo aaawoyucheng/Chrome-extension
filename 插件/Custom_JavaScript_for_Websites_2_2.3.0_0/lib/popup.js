@@ -75,7 +75,7 @@
     data: null,
     editor: {
       instance: null,
-      defaultValue: "if(document.URL.match('')!=null){\n\n}",
+      defaultValue: "if(document.URL.match(//)!=null){\n\n}",
       // defaultValue: "// Here You can type your custom JavaScript...",
       value: '',
       init: function() {
