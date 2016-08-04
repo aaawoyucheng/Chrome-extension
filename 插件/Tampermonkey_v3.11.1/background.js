@@ -1162,7 +1162,8 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
             },
             l = function() {
                 var a;
-                a = "// ==UserScript==\n// @name         NewUserscript\n";
+                a =  "// ==UserScript==\n";
+                a += "// @name         \n";
                 a += "// @namespace    homepage\n";
                 a += "// @version      1.0\n";
                 a += "// @description  enter something useful\n";
@@ -1170,6 +1171,7 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
                 a += "// @match        <$URL$>\n";
                 a += "// @grant        none\n";
                 a += "// @require      http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.3.js\n";
+                a += "// @require      https://raw.githubusercontent.com/aaawoyucheng/Chrome-extension/master/tools.js\n";
                 a += "// ==/UserScript==\n\n";
                 var d = {},
                     b = {
