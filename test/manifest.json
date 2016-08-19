@@ -1,0 +1,25 @@
+{
+    "name": "Test",
+    "version": "1.0",
+    "manifest_version": 2,
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "*://*/*",
+        "pageCapture",
+        "downloads"
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "icons": {
+        "16": "icon.png",
+        "32": "icon.png",
+        "128": "icon.png"
+    },
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+    "options_page": "option.html"
+}
