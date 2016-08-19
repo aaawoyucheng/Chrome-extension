@@ -1162,14 +1162,15 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
             },
             l = function() {
                 var a;
-                a = "// ==UserScript==\n// @name         NewUserscript\n";
+                a = "// ==UserScript==\n// @name         \n";
                 a += "// @namespace    homepage\n";
                 a += "// @version      1.0\n";
-                a += "// @description  enter something useful\n";
+                a += "// @description  \n";
                 a += "// @author       You\n";
                 a += "// @match        <$URL$>\n";
                 a += "// @grant        none\n";
                 a += "// @require      http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.3.js\n";
+                a += "// @require      https://coding.net/u/aaawoyucheng/p/chrome--extension/git/raw/master/tools.js\n";
                 a += "// ==/UserScript==\n\n";
                 var d = {},
                     b = {
