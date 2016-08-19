@@ -42,6 +42,7 @@
     "background": {
        "page": "background.html"
     },
+    "web_accessible_resources":["lib/tools.js"],
     "options_page": "options.html",
     "permissions": [
         "notifications",
