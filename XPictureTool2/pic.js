@@ -38,10 +38,13 @@ if (/ /.exec(document.URL) != null) {
     $('body img').each(function(i, o) {
         if (o.naturalWidth > 200) addImage(o);
     })
-    $('#imgcontent').siblings().addClass('display_none');
+}else if (/duitang.com/.exec(document.URL) != null) {
+    $('.j .mbpho .a img').each(function(i, o) {
+       addImage(o.src.replace(/thumb.+?\./,''));
+    })
 } else {
     $('body img').each(function(i, o) {
         if (o.naturalWidth > 200) addImage(o);
     })
-    $('#imgcontent').siblings().addClass('display_none');
 }
+$('#imgcontent').siblings().addClass('display_none');
