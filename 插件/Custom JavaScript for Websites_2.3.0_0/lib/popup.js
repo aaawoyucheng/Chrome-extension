@@ -75,8 +75,7 @@
     data: null,
     editor: {
       instance: null,
-      defaultValue: "if(document.URL.match(//)!=null){\n\n}",
-      // defaultValue: "// Here You can type your custom JavaScript...",
+      defaultValue: "// Here You can type your custom JavaScript...",
       value: '',
       init: function() {
         var editor = this.instance = ace.edit(popup.el.sourceEditor[0]);
@@ -314,7 +313,7 @@
 
       // Set enable checkbox
       popup.el.enableCheck.prop('checked', data.config.enable);
-      console.log(data.config.enable);
+
       // Fill 'extra include' textarea
       popup.el.includeTextarea.val(data.config.extra);
 
@@ -562,6 +561,20 @@
 
   popup.el.draftRemoveLink.on('click', popup.removeDraft);
 
+
+  /**
+   * Donate
+   */
+
+  var donate = {
+    button: popup.el.donateBtn,
+    form: popup.el.donateForm
+  };
+
+  donate.button.on('click', function(e) {
+    donate.form.find('input[name="submit"]').click();
+    e.preventDefault();
+  });
 
 
   /**
