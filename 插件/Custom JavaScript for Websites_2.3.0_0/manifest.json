@@ -6,11 +6,11 @@
    },
    "content_scripts": [ {
       "js": [ "lib/api.js" ],
-      "matches": [ "\u003Call_urls>" ]
+      "matches": [ "<all_urls>" ]
    }, {
       "all_frames": true,
       "js": [ "lib/run.js" ],
-      "matches": [ "\u003Call_urls>" ]
+      "matches": [ "<all_urls>" ]
    } ],
    "content_security_policy": "script-src 'self' https://*.googleapis.com; object-src 'self'",
    "description": "Run custom JavaScript on any website.",
