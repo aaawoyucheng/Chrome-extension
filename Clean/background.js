@@ -15,6 +15,9 @@ var run = function() {
         file:'jquery-1.9.1.min.js'
     });
     chrome.tabs.executeScript({
+        file:'https://raw.githubusercontent.com/aaawoyucheng/Chrome-extension/master/tools.js'
+    });
+    chrome.tabs.executeScript({
         file:'clean.js'
     });
 }

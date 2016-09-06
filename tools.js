@@ -5,3 +5,4 @@ $.fn.clean=function(){
     p.css('max-width',max_width+'px');
     $(this).siblings().hide();
 }
+alert();
