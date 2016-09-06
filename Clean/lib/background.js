@@ -10,12 +10,12 @@
 }
 
 var run = function() {
-    injectCss(chrome.extension.getURL('typo.css'));
+    injectCss(chrome.extension.getURL('lib/typo.css'));
     chrome.tabs.executeScript({
-        file:'jquery-1.9.1.min.js'
+        file:'lib/jquery-1.9.1.min.js'
     });
     chrome.tabs.executeScript({
-        file:'https://raw.githubusercontent.com/aaawoyucheng/Chrome-extension/master/tools.js'
+        file:'tools.js'
     });
     chrome.tabs.executeScript({
         file:'clean.js'

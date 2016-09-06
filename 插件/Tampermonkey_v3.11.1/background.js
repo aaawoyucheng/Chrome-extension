@@ -1162,15 +1162,17 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
             },
             l = function() {
                 var a;
-                a = "// ==UserScript==\n// @name         \n";
+                a = "// ==UserScript==\n";
+                a += "// @name         <$host$>\n";
                 a += "// @namespace    homepage\n";
                 a += "// @version      1.0\n";
                 a += "// @description  \n";
                 a += "// @author       You\n";
                 a += "// @match        <$URL$>\n";
                 a += "// @grant        none\n";
-                a += "// @require      http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.3.js\n";
-                a += "// @require      https://coding.net/u/aaawoyucheng/p/chrome--extension/git/raw/master/tools.js\n";
+                a += "// @run-at       document-end\n";
+                a += "// @require      "+chrome.extension.getURL('lib/jquery-1.9.1.min.js')+"\n";
+                a += "// @require      "+chrome.extension.getURL('lib/tools.js')+"\n";
                 a += "// ==/UserScript==\n\n";
                 var d = {},
                     b = {
@@ -4809,7 +4811,7 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
                                 "off" == l.values.appearance_badges ? b = 0 : "running" == l.values.appearance_badges ?
                                     a && !w.get.empty(a) && (b = w.get.stats(a).running) : "running_unique" == l.values.appearance_badges ? a && !w.get.empty(a) && (b = w.get.stats(a, !0).unique) : "disabled" == l.values.appearance_badges && a && !w.get.empty(a) && (b = w.get.stats(a).disabled);
                                 D && console.log("badge: set " + b);
-                                
+
                                 delete d[a]
                             }, 500)
                         }
@@ -5075,8 +5077,7 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
                         c = RegExp("^" + H.prefix),
                         l;
                     d && (l = w.get.user_agent(a.tabId, a.frameId));
-                    a = a.requestHeaders ||
-                        [];
+                    a = a.requestHeaders || [];
                     for (var g = 0; g < a.length; g++) {
                         var m = a[g];
                         m.name && (f && 0 == m.name.search(c) ? e.push(m) : d && "user-agent" == m.name.toLowerCase() ? (k = !0, b[m.name] = l) : b[m.name] = m.value)
