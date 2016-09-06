@@ -1171,8 +1171,8 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
                 a += "// @match        <$URL$>\n";
                 a += "// @grant        none\n";
                 a += "// @run-at       document-end\n";
-                a += "// @require      "+chrome.extension.getURL('lib/jquery-1.9.1.min.js')+"\n";
-                a += "// @require      "+chrome.extension.getURL('lib/tools.js')+"\n";
+                a += "// @require      https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js\n";
+                a += "// @require      https://raw.githubusercontent.com/aaawoyucheng/Chrome-extension/master/tools.js\n";
                 a += "// ==/UserScript==\n\n";
                 var d = {},
                     b = {
