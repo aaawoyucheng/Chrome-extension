@@ -35,6 +35,9 @@ $.fn.log = function() {
 var new=function(){
     $('a').attr('target','_blank');
 }
+var self=function(){
+    $('a').attr('target','_self');
+}
 var del = function(dom) {
     $(dom).remove();
 }
