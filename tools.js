@@ -32,6 +32,9 @@ $.fn.single = function(maxWidth) {
 $.fn.log = function() {
     console.log(this);
 }
+var new=function(){
+    $('a').attr('target','_blank');
+}
 var del = function(dom) {
     $(dom).remove();
 }
