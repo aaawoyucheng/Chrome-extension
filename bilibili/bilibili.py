@@ -12,10 +12,12 @@ def getHtml(url):
     opener = request.build_opener()
     opener.addheaders.append(("Cookie", "%s" % cookie))
     opener.addheaders.append(('Accept-encoding', 'gzip'))
-    return gzip.decompress(opener.open(url).read()).decode('utf-8').encode('gbk','ignore').decode('gbk')
+    return gzip.decompress(opener.open(url).read()).decode('utf-8').encode('gbk', 'ignore').decode('gbk')
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         url = sys.argv[1].replace("bilibili://", "")
+    url = re.subn('index_\d+.html', '', url)[0]
+    print(url)
     html = getHtml(url)
     aid, pid = re.findall("av(\d+)/?(?:index_(\d+))?", url)[0]
     # 获取cid
@@ -25,7 +27,7 @@ if __name__ == '__main__':
     title = soup.find('h1').string
     if "(" + pid + ")" in title:
         title = title.replace("(" + pid + ")", "")
-    title=title.replace('/',' ')
+    title = title.replace('/', ' ')
     os.system("@title %s" % title)
     videolist = soup.find_all('option')
     if len(videolist) > 0:
@@ -33,22 +35,24 @@ if __name__ == '__main__':
         baseurl = "http://www.bilibili.com"
         vidowntext = ""
         info = {}
+        info['title'] = title
         for item in videolist:
             pid = re.findall("index_(\d+)", item['value'])[0]
             if pid != "1":
-                downname = title + "(" + pid + ")" + ".flv"
+                downname = title + "(" + pid + ")"
             else:
-                downname = title + ".flv"
+                downname = title
+            downname=downname.strip()
+            print(downname)
             info[downname] = item.string.replace(
                 "?", " ").replace("/", " ").replace("\\", " ")
             video_url = baseurl + item["value"]
             vidowntext += video_url + "\n"
         vpath = os.path.join(basepath, title)
-        print(vidowntext)
-        open("%s.txt"%vpath, 'w').write(vidowntext)
-        if not os.path.exists(vpath):
-            os.makedirs(vpath)
+        # if not os.path.exists(vpath):
+        #     os.makedirs(vpath)
         info_json = os.path.join(vpath, title + ".json")
-        open(info_json, "w").write(json.dumps(info))
+        open("%s.txt" % vpath, 'w').write(vidowntext)
+        open("%s.json" % vpath, "w").write(json.dumps(info))
         print(info)
         print(vidowntext)
