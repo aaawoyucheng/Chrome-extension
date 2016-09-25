@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Cleaner V 1.0.0 -- by JiGuang @ http://44ux.com</title>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+        body{font-size:12px;}
+        fieldset{padding:5px 0;border:0 none;}
+        ul{list-style:none;}
+        a{text-decoration: none;color: #333;}
+        a:hover{text-decoration: none;}
+        .wrap{overflow: hidden; width:960px;}
+        .code{float: left; width:400px;height: 235px;margin: 10px; resize:none;font-family:"courier new";font-size:12px;}
+        .tips{font-size: 28px; position: absolute; top: 101px; left: 101px; font-family: "Microsoft Yahei"; color: #E7E7E7;}
+        .opt_panel{float: left;width:220px;height:200px; padding:10px;}
+        .opt{overflow:hidden;}
+        .opt li{float:left;cursor:pointer;line-height:2em;margin-bottom:5px;color:#333;padding-right:10px;}
+        .opt li input{margin-right:10px;;}
+        .opt li label{cursor:pointer;white-space:nowrap;}
+        .advanced_panel{float:left;width:270px; padding:10px 0 0;position:relative;}
+        .advanced_panel label{display:block;padding-bottom: 5px;}
+        .advanced_panel input{width:190px;margin-bottom:5px;padding:2px;}
+        .advanced_opt{padding: 15px 15px 0 0;}
+        button{cursor:pointer;padding:2px;margin-right:2px;}
+        input.common_attr{width:100px;}
+        #common_attr_tip{color:#c00;font-weight:bold;padding-left:10px;}
+        .copyright{font:24px/1.5em arial;padding: 10px 0;margin-left:-1px;}
+    </style>
+    <script type="text/javascript" src="clean.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <textarea id="code" class="code"></textarea>
+    <span class="tips" id="tips">将代码粘贴到此处</span>
+
+    <div id="opt_panel" class="opt_panel">
+        <ul id="opt" class="opt">
+            <li><label for="opt_1"><input id="opt_1" title="去掉className" name="" type="checkbox" value="cleanClassName">className</label></li>
+            <li><label for="opt_2"><input id="opt_2" title="去掉Id" name="" type="checkbox" value="cleanId" checked="checked">id</label></li>
+            <li><label for="opt_3"><input id="opt_3" title="去掉行内样式" name="" type="checkbox" value="cleanInlineStyle" checked="checked">inline-style</label></li>
+            <li><label for="opt_4"><input id="opt_4" title="去掉Table多余标签" name="" type="checkbox" value="cleanTable" checked="checked"> table</label></li>
+            <li><label for="opt_5"><input id="opt_5" title="去掉链接多余内容" name="" type="checkbox" value="cleanLink" checked="checked">Link</label></li>
+            <li><label for="opt_6"><input id="opt_6" title="去掉Img多余内容" name="" type="checkbox" value="cleanImg" checked="checked">img</label></li>
+            <li><label for="opt_7"><input id="opt_7" title="去掉Script标签及内容" name="" type="checkbox" value="cleanScript" checked="checked">script</label></li>
+            <li><label for="opt_8"><input id="opt_8" title="去掉Br" name="" type="checkbox" value="cleanBr" checked="checked">br</label></li>
+            <li><label for="opt_9"><input id="opt_9" title="去掉Html注释" name="" type="checkbox" value="cleanHtmlComment" checked="checked">html-comment</label></li>
+            <li><label for="opt_100"><input id="opt_100" title="去掉空行" name="" type="checkbox" value="cleanSpaceRow" checked="checked">blank</label><!-- 请将清除空行操作保持在最后，可以清除掉前面操作残留的空行 --></li>
+        </ul>
+        <div class="btn_wrap">
+            <button type="button" id="btn_replace_all" title="执行列表中的全部选项，不包含自定义标签">执行选中</button>
+            <button type="button" id="btn_dis_all" title="取消全部选中">取消全选</button>
+            <button type="button" id="btn_back" title="回退到上一步操作" disabled="disabled">后退</button>
+            <button type="button" id="btn_clear" title="清空代码区域" disabled="disabled">清空</button>
+        </div>
+        <p class="advanced_opt" >
+            <a href="#" id="advanced" class="advanced_opt" title="高级选项">高级选项 &raquo;</a>
+        </p>
+
+        <div class="copyright">
+            <a href="http://www.44ux.com" target="_blank" title="支持网站">Code Cleaner V 1.0</a>
+        </div>
+    </div>
+
+    <div id="advanced_panel" class="advanced_panel" style="display: none;">
+        <fieldset>
+            <label for="common_attr">清除自定义属性（回车补全）</label>
+            <input type="text" class="common_attr" id="common_attr" title="请输入属性名称，例如：tabIndex">
+            <span class="common_attr_tip" id="common_attr_tip" title=""></span><br>
+            <button type="button" id="btn_clean_attr">清除属性</button>
+            <button type="button" id="btn_clean_all_custom">仅保留常见属性</button>
+        </fieldset>
+        <fieldset>
+            <label for="custom_reg">自定义正则匹配</label>
+            <input type="text" id="custom_reg" value="" title="请输入正则表达式">
+            <label for="custom_replace">替换内容</label>
+            <input type="text" id="custom_replace" value="">
+            <button type="button" id="btn_custom" title="">执行替换</button>
+        </fieldset>
+        <fieldset>
+            <label for="custom_txt">替换全部文本</label>
+            <input type="text" id="custom_txt" value="" title="请输入欲替换的文本">
+            <button type="button" id="btn_custom_txt" title="">执行替换</button>
+        </fieldset>
+    </div>
+</div>
+</body>
+</html>
