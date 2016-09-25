@@ -1,72 +1,75 @@
+'use strict';
+
 (function () {
-	
-	let userStyles = new CustomJavaScript( location.href ),
-		domain = userStyles.domain,
-		storage = chrome.storage.local;
 
-	storage.get(null, function(data) {
-		if(data.sites[domain]) {
+	var userStyles = new CustomJavaScript(location.href),
+	    domain = userStyles.domain,
+	    storage = chrome.storage.local;
 
-			// Response  
-			let response = data.sites[domain];
+	storage.get(null, function (data) {
+		if (data.sites[domain]) {
+			(function () {
 
-			if(!response.disabled) {
-				if(response.js) {
-					
-					// Inject JS after DOM ready
-					document.onreadystatechange = function () {
-						if (document.readyState == "interactive") {
+				// Response  
+				var response = data.sites[domain];
 
-							// If has libs
-							if( response.libs ) {
-								let allLibs = data.libs,
-									enabledLibs = [];
+				if (!response.disabled) {
+					if (response.js) {
 
-								// Collect enabled libs
-								response.libs.forEach(function(i){
-									if(allLibs[i]) {
-										enabledLibs.push({
-											src: allLibs[i]['src'],
-											order: allLibs[i]['order']
+						// Inject JS after DOM ready
+						document.onreadystatechange = function () {
+							if (document.readyState == "interactive") {
+
+								// If has libs
+								if (response.libs) {
+									(function () {
+										var allLibs = data.libs,
+										    enabledLibs = [];
+
+										// Collect enabled libs
+										response.libs.forEach(function (i) {
+											if (allLibs[i]) {
+												enabledLibs.push({
+													src: allLibs[i]['src'],
+													order: allLibs[i]['order']
+												});
+											}
 										});
-									}
-								});
 
-								// Sort libs
-								if(enabledLibs.length > 1) {
-									enabledLibs.sort(compareLibsOrder);
+										// Sort libs
+										if (enabledLibs.length > 1) {
+											enabledLibs.sort(compareLibsOrder);
+										}
+
+										// Include enabled libs
+										enabledLibs.forEach(function (i) {
+											userStyles.setScript(i.src, document.head);
+										});
+									})();
 								}
 
-								// Include enabled libs
-								enabledLibs.forEach(function(i){
-									userStyles.setScript( i.src, document.head );
-								});
+								var scriptBase64 = userStyles.toBase64(response.js);
+								userStyles.setScript(scriptBase64, document.body);
 							}
-
-							let scriptBase64 = userStyles.toBase64( response.js );
-							userStyles.setScript( scriptBase64, document.body );
-						}
+						};
 					}
 
+					if (response.css) {
+
+						var css = response.css,
+						    style = document.createElement('style');
+
+						style.type = 'text/css';
+						style.appendChild(document.createTextNode(css));
+
+						document.head.appendChild(style);
+					}
 				}
-
-				if(response.css) {
-
-					let css = response.css,
-						style = document.createElement('style');
-
-					style.type = 'text/css';
-					style.appendChild(document.createTextNode(css));
-
-					document.head.appendChild(style);
-				}
-			}
+			})();
 		}
 	});
 
-function compareLibsOrder(a, b) {
-	return a.order - b.order;
-}
-
+	function compareLibsOrder(a, b) {
+		return a.order - b.order;
+	}
 })();
-

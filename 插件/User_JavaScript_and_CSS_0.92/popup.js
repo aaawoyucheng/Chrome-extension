@@ -1,182 +1,185 @@
-$(function() {
+'use strict';
 
-	jqueryAutoStart();
+$(function () {
 
-	let flag_jquery = document.getElementById('flag_jquery'),
-		flag_disable = document.getElementById('flag_disable'),
-		btn_submit = document.getElementById('btn_submit'),
-		btn_clear = document.getElementById('btn_clear'),
-		cssOnly = false,
-		alreadySaved = false,
-		userStyles,
-		domain,
-		activeTab;
+    jqueryAutoStart();
 
-	// Initialize
-	chrome.tabs.getSelected(null,function(tab) {
+    var flag_jquery = document.getElementById('flag_jquery'),
+        flag_disable = document.getElementById('flag_disable'),
+        btn_submit = document.getElementById('btn_submit'),
+        btn_clear = document.getElementById('btn_clear'),
+        cssOnly = false,
+        alreadySaved = false,
+        userStyles = void 0,
+        domain = void 0,
+        activeTab = void 0;
 
-		userStyles = new CustomJavaScript( tab.url );
-		domain = userStyles.domain;
-		title.innerHTML = domain;
+    // Initialize
+    chrome.tabs.getSelected(null, function (tab) {
 
-		// On error
-		if( !domain ) {
-			$('#ok').hide();
-			$('#error').show();
-		}
-	});
+        userStyles = new CustomJavaScript(tab.url);
+        domain = userStyles.domain;
+        title.innerHTML = domain;
 
-	// Редактор JS
-	var inputJS = ace.edit("inputJS");
-	inputJS.setTheme("ace/theme/tomorrow");
-	inputJS.getSession().setMode("ace/mode/javascript");
-	inputJS.$blockScrolling = Infinity;
+        // On error
+        if (!domain) {
+            $('#ok').hide();
+            $('#error').show();
+        }
+    });
 
-	// Редактор CSS
-	var inputCSS = ace.edit("inputCSS");
-	inputCSS.setTheme("ace/theme/tomorrow");
-	inputCSS.getSession().setMode("ace/mode/css");
-	inputCSS.$blockScrolling = Infinity;
+    // 袪械写邪泻褌芯褉 JS
+    var inputJS = ace.edit("inputJS");
+    inputJS.setTheme("ace/theme/tomorrow");
+    inputJS.getSession().setMode("ace/mode/javascript");
+    inputJS.$blockScrolling = Infinity;
 
-	// Загрузка
-	chrome.storage.local.get(null, function(data) {
+    // 袪械写邪泻褌芯褉 CSS
+    var inputCSS = ace.edit("inputCSS");
+    inputCSS.setTheme("ace/theme/tomorrow");
+    inputCSS.getSession().setMode("ace/mode/css");
+    inputCSS.$blockScrolling = Infinity;
 
-		// Load libs
-		if( !jQuery.isEmptyObject(data.libs) ) {
-			let q = 0;
-			for (let key in data.libs) {
-				let lib = data.libs[key],
-					input = '<input class="checkbox libs__element" type="checkbox" name="libs[]" value="'+key+'" id="lib'+q+'">',
-					name = '<label for="lib'+q+'">'+key+'</label>'; 
-				$('#listLibs').append('<li>'+input+name+'</li>');
-				q++;
-			}
-		}
+    // 袟邪谐褉褍蟹泻邪
+    chrome.storage.local.get(null, function (data) {
 
-		if(data.sites[domain]) {
+        // Load libs
+        if (!jQuery.isEmptyObject(data.libs)) {
+            var q = 0;
+            for (var key in data.libs) {
+                var lib = data.libs[key],
+                    input = '<input class="checkbox libs__element" type="checkbox" name="libs[]" value="' + key + '" id="lib' + q + '">',
+                    name = '<label for="lib' + q + '">' + key + '</label>';
+                $('#listLibs').append('<li>' + input + name + '</li>');
+                q++;
+            }
+        }
 
-			// Для автосохранения
-			alreadySaved = true;
+        if (data.sites[domain]) {
 
-			// Response
-			let response = data.sites[domain],
-				isDraft = false;
-			//console.log(response);
+            // 袛谢褟 邪胁褌芯褋芯褏褉邪薪械薪懈褟
+            alreadySaved = true;
 
-			// "Disabled" checkbox
-			if(response.disabled)
-				$(flag_disable).prop('checked', true);
+            // Response
+            var response = data.sites[domain],
+                isDraft = false;
+            //console.log(response);
 
-			// Load JavaScript
-			if ( !inputJS.getValue() ) {
-				let setjs;
-				if( response.draftjs && response.draftjs != response.js ) {
-					setjs = response.draftjs;
-					isDraft = true;
-				} else {
-					setjs = response.js;
-				}
-				inputJS.setValue( setjs );
-			}
+            // "Disabled" checkbox
+            if (response.disabled) $(flag_disable).prop('checked', true);
 
-			// Load CSS
-			if ( !inputCSS.getValue() ) {
-				let setcss;
-				if( response.draftcss && response.draftcss != response.css ) {
-					setcss = response.draftcss;
-					isDraft = true;
-				} else {
-					setcss = response.css;
-				}
-				inputCSS.setValue( setcss );
-			}
+            // Load JavaScript
+            if (!inputJS.getValue()) {
+                var setjs = void 0;
+                if (response.draftjs && response.draftjs != response.js) {
+                    setjs = response.draftjs;
+                    isDraft = true;
+                } else {
+                    setjs = response.js;
+                }
+                inputJS.setValue(setjs);
+            }
 
-			// Turn on libs
-			if(response.libs) {
-				response.libs.forEach(function(i) {
-					$('input[value="'+i+'"]').prop("checked", true);
-				});
-			}
+            // Load CSS
+            if (!inputCSS.getValue()) {
+                var setcss = void 0;
+                if (response.draftcss && response.draftcss != response.css) {
+                    setcss = response.draftcss;
+                    isDraft = true;
+                } else {
+                    setcss = response.css;
+                }
+                inputCSS.setValue(setcss);
+            }
 
-			// Set active tab
-			if (!inputJS.getValue() && inputCSS.getValue()) {
-				activeTab = 1;
-			} else {
-				activeTab = 0;
-			}
+            // Turn on libs
+            if (response.libs) {
+                response.libs.forEach(function (i) {
+                    $('input[value="' + i + '"]').prop("checked", true);
+                });
+            }
 
-		} else {
-			// Set tab JS active
-			activeTab = 0;
-		}
+            // Set active tab
+            if (!inputJS.getValue() && inputCSS.getValue()) {
+                activeTab = 1;
+            } else {
+                activeTab = 0;
+            }
+        } else {
+            // Set tab JS active
+            activeTab = 0;
+        }
 
-		// Сохранение черновика
-		setInterval( function() {
-			if ( inputJS.getValue() || inputCSS.getValue() ) {
-				let prefs = {
-					//js: inputJS.getValue() || "",
-					draftjs: inputJS.getValue() || "",
-					//css: inputCSS.getValue() || "",
-					draftcss: inputCSS.getValue() || "",
-					disabled: flag_disable.checked
-				};
-				prefs.libs = [];
-				$('.libs__element:checked').each(function(i) {
-					prefs.libs[i] = $(this).val();
-				});
+        // 小芯褏褉邪薪械薪懈械 褔械褉薪芯胁懈泻邪
+        setInterval(function () {
+            if (inputJS.getValue() || inputCSS.getValue()) {
+                (function () {
+                    var prefs = {
+                        //js: inputJS.getValue() || "",
+                        draftjs: inputJS.getValue() || "",
+                        //css: inputCSS.getValue() || "",
+                        draftcss: inputCSS.getValue() || "",
+                        disabled: flag_disable.checked
+                    };
+                    prefs.libs = [];
+                    $('.libs__element:checked').each(function (i) {
+                        prefs.libs[i] = $(this).val();
+                    });
 
-				/* На случай, если автосохранение делается для нового домена */
-				if(!alreadySaved) {
-					prefs.js = inputJS.getValue() || "";
-					prefs.css = inputCSS.getValue() || "";
-				}
-				/* */
+                    /* 袧邪 褋谢褍褔邪泄, 械褋谢懈 邪胁褌芯褋芯褏褉邪薪械薪懈械 写械谢邪械褌褋褟 写谢褟 薪芯胁芯谐芯 写芯屑械薪邪 */
+                    if (!alreadySaved) {
+                        prefs.js = inputJS.getValue() || "";
+                        prefs.css = inputCSS.getValue() || "";
+                    }
+                    /* */
 
-				saveProps(domain, prefs, function(){});	
-			}
-		}, 1000);
+                    saveProps(domain, prefs, function () {});
+                })();
+            }
+        }, 1000);
 
-		// TABS
-		let tabs = new makeMTabs(activeTab);
-	});
+        // TABS
+        var tabs = new makeMTabs(activeTab);
+    });
 
-	// Options
-	document.querySelector('#settings').addEventListener( "click", function() {
-		if (chrome.runtime.openOptionsPage) {
-			chrome.runtime.openOptionsPage();
-		} else {
-			window.open(chrome.runtime.getURL('options.html'));
-		}
-	});
+    // Options
+    document.querySelector('#settings').addEventListener("click", function () {
+        if (chrome.runtime.openOptionsPage) {
+            chrome.runtime.openOptionsPage();
+        } else {
+            window.open(chrome.runtime.getURL('options.html'));
+        }
+    });
 
-	// Сохраниние
-	btn_submit.onclick = function() {
-		if ( inputJS.getValue() || inputCSS.getValue() ) {
-			let prefs = {
-				js: inputJS.getValue() || "",
-				draftjs: inputJS.getValue() || "",
-				css: inputCSS.getValue() || "",
-				draftcss: inputCSS.getValue() || "",
-				disabled: flag_disable.checked
-			};
-			prefs.libs = [];
-			$('.libs__element:checked').each(function(i) {
-				prefs.libs[i] = $(this).val();
-			});
+    // 小芯褏褉邪薪懈薪懈械
+    btn_submit.onclick = function () {
+        if (inputJS.getValue() || inputCSS.getValue()) {
+            (function () {
+                var prefs = {
+                    js: inputJS.getValue() || "",
+                    draftjs: inputJS.getValue() || "",
+                    css: inputCSS.getValue() || "",
+                    draftcss: inputCSS.getValue() || "",
+                    disabled: flag_disable.checked
+                };
+                prefs.libs = [];
+                $('.libs__element:checked').each(function (i) {
+                    prefs.libs[i] = $(this).val();
+                });
 
-			saveProps(domain, prefs, function(){
-				chrome.tabs.reload();
-				window.close();
-			});	
-		}
-	};
+                saveProps(domain, prefs, function () {
+                    chrome.tabs.reload();
+                    window.close();
+                });
+            })();
+        }
+    };
 
-	// Очистка
-	btn_clear.onclick = function() {
-		removeDomain(domain, function() {
-			chrome.tabs.reload();
-			window.close();
-		});	
-	}
-
+    // 袨褔懈褋褌泻邪
+    btn_clear.onclick = function () {
+        removeDomain(domain, function () {
+            chrome.tabs.reload();
+            window.close();
+        });
+    };
 });
