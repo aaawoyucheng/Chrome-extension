@@ -1,0 +1,25 @@
+{
+   "background": {
+      "scripts": [ "ajax_background.js" ]
+   },
+   "browser_action": {
+      "default_icon": "icon48.png"
+   },
+   "content_scripts": [ {
+      "js": [ "jquery-1.10.2.js", "ajax_content.js" ],
+      "matches": [ "http://*/*", "https://*/*" ]
+   } ],
+   "description": "Capture AJAX requests done in browser.  Generate JQuery code to replay such requests.  Execute AJAX and see results.",
+   "icons": {
+      "128": "icon128.png",
+      "16": "icon16.png",
+      "48": "icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjAb52Rb9fm8L0ehsCe56NSIBkq51b4wYqOsCvZCi4Sk7LDqETktpj0z4+ly21dt3+BzmLQO/1SqaSj/2LL3xO2Lw8w+3J6ysC8GPD0CTHtQWdjhzntW+8aU5BebonuvTayrKQn8UFJQW3VMcEXM6NE4y6sEYFh+T91fNEvdfLmWCo5uFiZa45P3/3XrtPYPmENtu8PK0ch0jtE2Y/g7O9fw0JKRvAzQyxGWR9ROHY0PMGQf8UgsFONdFQ0382dDwTav5qsUEmLiYUuFMvz/ePE2yJ2l7BKABI308+iHRPpQOoer2RdN3PXSM108lO8BfkG/v0BH5BC4sZ37IWAL//wIDAQAB",
+   "manifest_version": 2,
+   "name": "JQuery AJAX Capture",
+   "permissions": [ "webRequest", "webRequestBlocking", "cookies", "tabs", "http://*/*", "https://*/*" ],
+   "short_name": "AJAX Capture",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0"
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/ace/ace.js"></script>
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<script src="app.js"></script>
+	<script src="popup.js"></script>
+	<title data-msg="main_title">User JS and CSS</title>
+</head>
+<body class="popup">
+
+	<div id="ok">
+		<div class="header clearfix">
+			<h1 id="title"></h1>
+			<div id="dropDownLibs">
+				<div class="dropdown-btn" data-msg="libs">Libs</div>
+				<ul id="listLibs" class="libs"></ul>
+			</div>
+			<div class="check-disable">
+				<input type="checkbox" name="disable" id="flag_disable">
+				<label for="flag_disable" data-msg="disable">Disable</label>
+			</div>
+			<div id="settings"></div>
+		</div>
+
+		<div class="js-tabs">
+			<ul class="js-tabs__titles clearfix">
+				<li class="js-tabs__title js-click-effect">JavaScript</li>
+				<li class="js-tabs__title js-click-effect">CSS</li>
+			</ul>
+			<div class="js-tabs__right-btn">
+				<div id="btn_clear" class="btn" data-msg="remove">Remove</div>
+				<div id="btn_submit" class="btn" data-msg="save">Save</div>
+			</div>
+			<div class="js-tabs__contents">
+				<div class="js-tabs__content">
+					<div id="inputJS" class="form"></div>
+				</div>
+				<div class="js-tabs__content">
+					<div id="inputCSS" class="form"></div>
+				</div>
+			</div>
+		</div>	
+	</div>
+
+	<div id="error" data-msg="error_msg">
+		Looks like this page cannot be modified.
+	</div>
+
+</body>
+</html>

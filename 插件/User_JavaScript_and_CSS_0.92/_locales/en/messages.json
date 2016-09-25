@@ -1,0 +1,80 @@
+{
+   "about": {
+      "message": "About"
+   },
+   "add": {
+      "message": "Add"
+   },
+   "close": {
+      "message": "Close"
+   },
+   "contact": {
+      "message": "Contact"
+   },
+   "description": {
+      "message": "Custom JavaScript and CSS on any website."
+   },
+   "disable": {
+      "message": "Disable"
+   },
+   "donate": {
+      "message": "If you like this extension you can."
+   },
+   "download_json": {
+      "message": "download current storage as JSON"
+   },
+   "editor": {
+      "message": "Editor"
+   },
+   "error_msg": {
+      "message": "Looks like this page cannot be modified."
+   },
+   "file_recovery": {
+      "message": "And load saved JSON file (current storage will be removed):"
+   },
+   "libs": {
+      "message": "Libs"
+   },
+   "libsDescription": {
+      "message": "Proper \"order\" defines order of execute sequence. The lower starts first."
+   },
+   "main_title": {
+      "message": "User JavaScript and CSS"
+   },
+   "name": {
+      "message": "Name"
+   },
+   "no_libs": {
+      "message": "No libs right now"
+   },
+   "no_sites": {
+      "message": "No data right now"
+   },
+   "order": {
+      "message": "Order"
+   },
+   "remove": {
+      "message": "Remove"
+   },
+   "save": {
+      "message": "Save"
+   },
+   "settings": {
+      "message": "Settings"
+   },
+   "src": {
+      "message": "SRC"
+   },
+   "storage": {
+      "message": "Storage"
+   },
+   "version": {
+      "message": "Version"
+   },
+   "websites": {
+      "message": "Websites"
+   },
+   "you_can": {
+      "message": "You can "
+   }
+}

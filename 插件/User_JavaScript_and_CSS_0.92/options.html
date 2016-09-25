@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/ace/ace.js"></script>
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<script src="app.js"></script>
+	<script src="options.js"></script>
+	<title data-msg="main_title">User JavaScript and CSS</title>
+</head>
+<body class="options">
+
+	<div id="popupFrame"></div>
+
+	<header>
+		<div class="wrapper" data-msg="settings">User JavaScript and CSS</div>
+	</header>
+
+	<div class="wrapper">
+		<div class="container">
+
+			<!-- TABS -->
+			<div class="js-tabs">
+				<ul class="js-tabs__titles clearfix">
+					<li class="js-tabs__title js-click-effect" data-msg="websites">Websites</li>
+					<li class="js-tabs__title js-click-effect" data-msg="libs">Libs</li>
+					<li class="js-tabs__title js-click-effect" data-msg="storage">Storage</li>
+					<li class="js-tabs__title js-click-effect" data-msg="about">About</li>
+				</ul><!-- .js-tabs__titles -->
+
+				<div class="js-tabs__contents">
+					<div class="js-tabs__content">
+						<ul id="siteList"></ul>
+					</div>
+
+					<div class="js-tabs__content">
+						<p data-msg="libsDescription"></p>
+						<ul id="libsList" class="lib"></ul>
+						<div id="libsFormAdd" class="libs-inputs">
+							<div class="libs-input libs-input__name">
+								<div class="lib-label" data-msg="name">Name</div>
+								<input type="text" id="libname">
+							</div><!--
+							--><div class="libs-input libs-input__src">
+								<div class="lib-label" data-msg="src">Src</div>
+								<input type="text" id="libsrc">
+							</div><!--
+							--><div class="libs-input libs-input__order">
+								<div class="lib-label" data-msg="order">Order</div>
+								<input type="text" id="liborder" value="100">
+							</div><!--
+							--><div class="libs-input libs-input__btn">
+								<div id="libsubmit" class="btn btn-opt" data-msg="add">Add</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="js-tabs__content" id="recovery">
+						<div class="inner opt-group">
+							<div id="download" class="mb-10"><span data-msg="you_can">You can </span></div>
+							<div data-msg="file_recovery">And upload saved storage from json (current storage will be removed):</div>
+							<input type="file" name="loadJson" accept="application/json" id="loadJson">
+						</div>
+					</div>
+
+					<div class="js-tabs__content">
+						<div class="about-group">
+							<!--<div><p></p></div>-->
+							<div><span data-msg="version">Version</span>: <span id="version">Error</span></div>
+							<div><span data-msg="contact">Contact</span>: <a href="mailto:sqdevil@yandex.ru">sqdevil@yandex.ru</a></div>
+							<div><span data-msg="editor">Editor</span>: <a href="https://ace.c9.io/" target="_blank">Ace editor</a></div>
+						</div>
+					</div>
+				</div><!-- .js-tabs__contents -->
+			</div>
+			<!-- .TABS -->
+
+		</div>
+
+		<!--<button id="clear"></button>-->
+
+	</div>
+
+
+</body>
+</html>

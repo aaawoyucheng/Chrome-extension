@@ -1,0 +1,80 @@
+{
+   "about": {
+      "message": "О расширении"
+   },
+   "add": {
+      "message": "Добавить"
+   },
+   "close": {
+      "message": "Закрыть"
+   },
+   "contact": {
+      "message": "Связь со мной"
+   },
+   "description": {
+      "message": "Пользовательские JavaScript и CSS на любом сайте."
+   },
+   "disable": {
+      "message": "Отключить"
+   },
+   "donate": {
+      "message": "Если вам понравилось моё приложение, можно выразить спасибо парой рублей."
+   },
+   "download_json": {
+      "message": "скачать текущее хранилище как JSON"
+   },
+   "editor": {
+      "message": "Редактор"
+   },
+   "error_msg": {
+      "message": "Похоже, эта страница не может быть изменена."
+   },
+   "file_recovery": {
+      "message": "И загрузить сохраненный JSON файл (текущая информация будет стерта):"
+   },
+   "libs": {
+      "message": "Библиотеки"
+   },
+   "libsDescription": {
+      "message": "На сайты можно подключать свои библиотеки. Учтите, что для https сайтов нужны https ссылки на ресурс. \"Порядок\" определяет последовательность загрузки нескольких библиотек, чем он меньше, тем первее запустится скрипт."
+   },
+   "main_title": {
+      "message": "User JavaScript and CSS"
+   },
+   "name": {
+      "message": "Название"
+   },
+   "no_libs": {
+      "message": "Библиотек пока нет."
+   },
+   "no_sites": {
+      "message": "Сайтов пока нет"
+   },
+   "order": {
+      "message": "Порядок"
+   },
+   "remove": {
+      "message": "Удалить"
+   },
+   "save": {
+      "message": "Сохранить"
+   },
+   "settings": {
+      "message": "Настройки"
+   },
+   "src": {
+      "message": "Ссылка"
+   },
+   "storage": {
+      "message": "Хранилище"
+   },
+   "version": {
+      "message": "Версия"
+   },
+   "websites": {
+      "message": "Сайты"
+   },
+   "you_can": {
+      "message": "Вы можете "
+   }
+}
