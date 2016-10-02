@@ -38,11 +38,18 @@ if (/ /.exec(document.URL) != null) {
     $('body img').each(function(i, o) {
         if (o.naturalWidth > 200) addImage(o);
     })
-}else if (/duitang.com/.exec(document.URL) != null) {
+}
+else if (/duitang.com/.exec(document.URL) != null) {
     $('.j .mbpho .a img').each(function(i, o) {
        addImage(o.src.replace(/thumb.+?\./,''));
     })
-} else {
+}
+else if (/diyidan.com/.exec(document.URL) != null) {
+    $('.post_content_img img').each(function(i, o) {
+       addImage(o.src.replace(/thumb.+?\./,''));
+    })
+}
+ else {
     $('body img').each(function(i, o) {
         if (o.naturalWidth > 200) addImage(o);
     })
