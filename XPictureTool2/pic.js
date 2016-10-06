@@ -61,15 +61,20 @@ var imgContentInit = function() {
         "#imgContent_title{border: none; font-weight: bold; line-height: 30px; font-size: 21px; padding: 20px 0px; margin: 0 20px; border-bottom: 1px solid rgba(233, 230, 232, 0.37);}" +
         ".display_none{display:none!important}" +
         ".display_img{max-width: 680px;max-height:100%;display: block;margin: 20px auto;border-radius: 8px;box-shadow: 0 0 8px #ccc;}" +
-        "#imgShow{z-index: 999;top: 0px; left: 0; position: fixed; width: 100%; height: 100%;background: rgba(0, 0, 0, 0.9);}" +
-        "#imgShow img{max-height: 100%; display: block; margin: auto;}" +
-        "#imgControll{z-index: 1000; position: fixed; top: 0; right: 10px; width: 300px; height: 100%; background: rgb(241, 241, 242); box-shadow: 0px 0px 10px #ccc; line-height: 40px;}" +
-        "#imgControll:hover{background: rgba(24,24,24,0); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0);}";
+        "#imgDelete{position: fixed; top: 130px; right: 30px; width: 100px; height: 100px; background: rgba(255, 0, 0, 0); z-index: 1001; box-shadow: 0 0 10px rgba(204,204,204,0.5); line-height: 66px;}" +
+        "#showBig{z-index: 999;top: 0px; left: 0; position: fixed; width: 100%; height: 100%;background: rgba(0, 0, 0, 0.9);}" +
+        "#showBig img{height: 100%; display: block; margin: auto;}" +
+        ".currentImg{position: fixed; height: 100%; max-width: 100%; z-index: 1000; top: 0; left: 0; right: 0; margin: auto;}" +
+        ".fordel{border: 5px red solid;}" +
+        "div#imgList {position: fixed; bottom: 10px; left: 0px; width: 100%; max-height: 100%; z-index: 1000;}" +
+        "div#imgList img{ max-height: 100px; margin: 10px ;}" +
+        "#imgControll{z-index: 1000; position: fixed; top: 10px; right: 30px; width: 100px; height: 100px; background: rgba(24,24,24,0); box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); line-height: 50px;}";
     $('.xpictureCss').remove();
     $('<style class=xpictureCss >' + cssText + '</style>').appendTo('head');
     var title = match.title != '' ? $(match.title).text() : document.title;
     imgContent.html('<div id="imgContent_title" >' + title + '</div>');
     // changeShow();
+    imagesInit();
 };
 var imagesInit = function() {
     var selector;
@@ -96,63 +101,140 @@ var imagesInit = function() {
         c = c.reverse().join(' ');
         console.log('parent:' + c);
         var src = match.src(this.src)
-            // console.log(this.naturalWidth);
         var img = $('<img class=display_img src=' + src + ' />');
         img.appendTo('#imgContent');
-        // $("<div style=''>picture:" + total + "</div>")
-        //     .appendTo('#imgContent');
     });
 
 };
-var imageControllerInit = function() {
+var imgControllInit = function() {
     $('#imgControll').remove();
-    $('<div id=imgControll ></div>').appendTo('#imgContent');
-    pic = {
-        total: $('#imgContent img').size() - 2,
-        current: 0
-    };
-    var getCurrent = function() {
-        $('#imgContent img').filter(function(index) {
-            var len = $(this).offset().top - $(document).scrollTop();
-            if (0 < len && len < $(window).height() / 2) {
-                pic.current = index;
+    $('<div id=imgControll ><div id=info ></div></div>').appendTo('#imgContent');
+    total = $('#imgContent .display_img').size() - 1;
+    current = 0;
+    var setCurrent = function() {
+        $('#imgContent .display_img').filter(function(index) {
+            if ($(this).hasClass('currentImg')) {
+                current = index;
                 return true;
             }
         });
-    }
+        total = $('#imgContent .display_img').size() - 1;
+    };
+    var getCurrentImg = function() {
+        return $($('#imgContent .display_img')[current]);
+    };
+    var showCurrent = function() {
+        $('#info').text((current + 1) + ' / ' + (total + 1));
+    };
     var showBig = function() {
-        $('#imgShow img').attr('src', $('#imgContent img')[pic.current].src);
-        $('#imgControll').text((pic.current + 1) + ' / ' + (pic.total + 1));
-    }
-    $('#imgControll').hover(function() {
-        $('<div id=imgShow><img></div>').appendTo('#imgContent');
+        if ($('#showBig').size() == 0) {
+            $('<div id=showBig></div>').appendTo('#imgContent');
+        }
+        $('.currentImg').removeClass('currentImg');
+        getCurrentImg().addClass('currentImg');
+    };
+    var imgDeleteInit = function() {
+        if ($('#imgDelete').size() == 0) {
+            $('<div id=imgDelete>Delete</div>').appendTo('#showBig');
+        }
+        $('#imgDelete').click(function() {
+            $('.fordel').remove();
+            total = $('#imgContent .display_img').size() - 1;
+            if (current > total) {
+                current = 0;
+            }
+            showCurrent();
+            showBig();
+        });
+    };
+    var showCurrentNormol = function() {
+        window.onmousewheel = function(e) {
+            $('#imgContent .display_img').filter(function(index) {
+                var top = $(this).offset().top;
+                var bottom = $(this).offset().top + $(this).height();
+                // console.log(top,bottom,e.pageY);
+                if (top < e.pageY && bottom > e.pageY) {
+                    current = index;
+                    return true;
+                }
+            });
+            showCurrent();
+        };
+
+    };
+    var getImgSrc = function(i) {
+        if (i < 0) {
+            i = total + i;
+        } else if (i > total) {
+            i = i - total-1;
+        }
+        return $('#imgContent .display_img')[i].src;
+    };
+    var imgListInit = function() {
+        if ($('#imgList').size() == 0) {
+            $('<div id=imgList ></div>').appendTo('#imgContent');
+        }
+        $('#imgList').html('');
+        var a=[];
+        var b=[];
+        for (var i =-5;i<6;i++) {
+            var dst=current+i;
+            if(dst>total){
+                dst=dst-total-1;
+            }else if(dst<0){
+                dst=total+1+dst;
+            }
+            a.push(dst);
+            b.push(current+i);
+            var img=$('<img src="'+getImgSrc(dst)+'" alt="" />');
+            if($($('.display_img')[dst]).hasClass('fordel')){
+                img.addClass('fordel');
+            }
+            $('#imgList').append(img);
+        }
+        console.log(a.join());
+        console.log(b.join());
+    };
+    showCurrentNormol();
+    $('#imgContent .display_img').click(function() {
+        if ($(this).hasClass('fordel')) {
+            $(this).removeClass('fordel');
+        } else {
+            $(this).addClass('fordel');
+        }
+    });
+    $('#imgContent .display_img').mouseenter(function() {
+        img = $(this);
+        img.addClass('currentImg');
+        setCurrent();
+        showCurrent();
+        showBig();
         window.onmousewheel = function(e) {
             if (e.wheelDelta < 0) {
-                pic.current++;
+                current++;
             } else {
-                pic.current--;
+                current--;
             }
-            if (pic.current > pic.total) {
-                pic.current = 0;
-            } else if (pic.current < 0) {
-                pic.current = pic.total;
+            if (current > total) {
+                current = 0;
+            } else if (current < 0) {
+                current = total;
             }
-            $(window).scrollTop($($('#imgContent img')[pic.current]).offset().top);
+            showCurrent();
             showBig();
+            imgListInit();
         };
-        getCurrent();
-        showBig();
-
-    }, function() {
-        window.onmousewheel = function() {
-            getCurrent();
-            showBig();
-        };
-        $('#imgShow').remove();
-        $(window).scrollTop($($('#imgContent img')[pic.current]).offset().top);
+        imgDeleteInit();
+        imgListInit();
+    });
+    $('#imgControll').mouseenter(function() {
+        $('#showBig,#imgList').remove();
+        $('.currentImg').removeClass('currentImg');
+        $(window).scrollTop(getCurrentImg().offset().top);
+        showCurrentNormol();
     });
 }
+
 imgContentInit();
-imagesInit();
-imageControllerInit();
-imgContent.siblings().remove();
+imgControllInit();
+// imgContent.siblings().remove();
