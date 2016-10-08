@@ -38,3 +38,6 @@ var del = function(dom) {
 var cssInsert = function(style) {
     $("<style>" + style + "</style>").insert2head();
 }
+var GM_addStyle=function(css){
+    $('<style>'+css+'</style>').appendTo('head');
+}

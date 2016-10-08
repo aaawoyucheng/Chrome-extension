@@ -10,7 +10,7 @@
 }
 
 var run = function() {
-    injectCss(chrome.extension.getURL('lib/typo.css'));
+    // injectCss(chrome.extension.getURL('lib/typo.css'));
     chrome.tabs.executeScript({
         file:'lib/jquery-1.9.1.min.js'
     });
