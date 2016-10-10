@@ -1,8 +1,8 @@
 GM_addStyle('.xx{float: right; height: 10px; width: 10px;}');
 GM_addStyle('.fordel{border:1px red solid}');
 GM_addStyle('.fordel2{display:none!important}');
-GM_addStyle('#cancel{line-height: 50px; position: fixed; width: 50px; height: 50px; top: 110px; right: 65px; background: rgba(117, 117, 117, 0.4); font-size: 14px;text-align: center;}');
-GM_addStyle('#over{line-height: 50px; position: fixed; width: 50px; height: 50px; top: 110px; right: 10px; background: rgba(117, 117, 117, 0.4); font-size: 14px;text-align: center;}');
+GM_addStyle('#cancel{z-index:99999;line-height: 50px; position: fixed; width: 50px; height: 50px; top: 110px; right: 65px; background: rgba(117, 117, 117, 0.4); font-size: 14px;text-align: center;}');
+GM_addStyle('#over{z-index:99999;line-height: 50px; position: fixed; width: 50px; height: 50px; top: 110px; right: 10px; background: rgba(117, 117, 117, 0.4); font-size: 14px;text-align: center;}');
 // $('*').hover(function() {
 //     $(this).addClass('fordel');
 //     $(this).parents().removeClass('fordel');
