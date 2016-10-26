@@ -64,7 +64,7 @@ var imgContentInit = function() {
         "#imgDelete{position: fixed; top: 130px; right: 30px; width: 120px; height: 100px; background: rgba(255, 0, 0, 0); z-index: 1001; box-shadow: 0 0 10px rgba(204,204,204,0.5); line-height: 66px;}" +
         "#showBig{z-index: 999;top: 0px; left: 0; position: fixed; width: 100%; height: 100%;background: rgba(0, 0, 0, 0.9);}" +
         "#showBig img{height: 100%; display: block; margin: auto;}" +
-        ".currentImg{position: fixed; max-height: 95%; max-width: 75%; top: 0;bottom: 0; left: 0; right: 0; margin: auto;z-index: 1000;}" +
+        ".currentImg{position: fixed; max-height: 95%; max-width: 75%;min-width: 35%; top: 0;bottom: 0; left: 0; right: 0; margin: auto;z-index: 1000;}" +
         ".fordel{border: 5px red solid;}" +
         ".listcurrent{border: 15px red solid;}" +
         "div#imgList {position: fixed; z-index: 1000; top: 0; bottom: 0; left: 20px;height: 630px; margin: auto;}" +
