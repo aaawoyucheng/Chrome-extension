@@ -8,6 +8,14 @@ var matched = {
             return src.replace(/ /, '');
         }
     },
+    'http://tieba.baidu.com/p/': {
+        title: '',
+        selector: '',
+        parent: '.d_post_content',
+        src: function(src) {
+            return src.replace(/ /, '');
+        }
+    },
     'http://www.87dm.com/': {
         title: '',
         selector: '',
@@ -107,7 +115,7 @@ var imagesInit = function() {
         var img = $('<img class=display_img src=' + src + ' />');
         img.appendTo('#imgContent');
     });
-
+    $('#imgContent img').filter(function(){return this.naturalWidth<500||this.naturalHeight<300}).remove()
 };
 var imgControllInit = function() {
     $('#imgControll').remove();
