@@ -1,0 +1,1 @@
+!function(e){e.contentPage={sendMessage:yiclearCommon.SendMessageFunction,onMessage:new yiclearCommon.OnMessageEvent},e.browser=browser||chrome,e.i18n=browser.i18n}(window);

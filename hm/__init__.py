@@ -64,6 +64,16 @@ def getFiles(path=None,filter=None):
             result.append(file)
     return result
 
+def getPaths(path=None,filter=None):
+    result = []
+    if path == None:
+        path = os.getcwd()
+    for item in os.listdir(path):
+        dir = join(path, item)
+        if isdir(dir):
+            result.append(dir)
+    return result
+
 
 def sizerate(file1, file2):
     return os.path.getsize(file1) / os.path.getsize(file2)

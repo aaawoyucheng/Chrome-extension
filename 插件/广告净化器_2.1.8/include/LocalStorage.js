@@ -1,0 +1,1 @@
+!function(e){e.LocalStorage=function(){"use strict";var t=localStorage,r=function(e){return t.getItem(e)},o=function(r,o){try{t.setItem(r,o)}catch(t){e.Log.error("Error save item cause: {0}",t)}},a=function(e){t.removeItem(e)};return{storage:t,getItem:r,setItem:o,removeItem:a}},e.LocalStorage=new e.LocalStorage}(vAPI);

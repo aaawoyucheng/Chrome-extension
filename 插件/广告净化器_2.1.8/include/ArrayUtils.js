@@ -1,0 +1,1 @@
+!function(r){r.ArrayUtils=function(){"use strict";var r=Array.isArray||function(r){return""+r=="[object Array]"};return{isArray:r}},r.ArrayUtils=new r.ArrayUtils}(vAPI);

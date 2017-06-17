@@ -8,15 +8,15 @@ def webp(src=None):
         webp(os.getcwd())
     elif os.path.isdir(src):
         batch(webp, getFiles(src))
-    else:
+    elif isfile(src):
         try:
+            with Image.open(src) as img:
+                format = img.format
             base, ext = os.path.splitext(src)
             if ext in ['.webp', '.tmp']:
                 return
             dst = base + '.webp'
             tmp = base + '.tmp'
-            with Image.open(src) as img:
-                format = img.format
             if format in ['WEBP', 'GIF']:
                 dst = base + '.' + format.lower()
                 if format.lower() != ext[1:]:
@@ -32,8 +32,7 @@ def webp(src=None):
                     remove(src)
                 else:
                     remove(tmp)
-        except Exception as e:
-            print(e)
+        except Exception:
             pass
 
 
