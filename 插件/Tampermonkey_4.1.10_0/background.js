@@ -1253,13 +1253,14 @@ Registry.require("promise statistics convert xmlhttprequest downloads cache stor
                             "// @match        <$URL$>\n"+
                             "// @grant        GM_addStyle\n"+
                             "// @grant        GM_download\n"+
-                            "// ==/UserScript==\n"+
-                            "\n"+
-                            "(function() {\n"+
-                            "    'use strict';\n"+
-                            "\n"+
-                            "\n"+
-                            "})();"
+                            "// ==/UserScript==\n"
+                            // +
+                            // "\n"+
+                            // "(function() {\n"+
+                            // "    'use strict';\n"+
+                            // "\n"+
+                            // "\n"+
+                            // "})();"
                         }, {
                             name: "ECMAScript 6",
                             value: "// ==UserScript==\n// @name         New ES6-Userscript\n// @namespace    http://tampermonkey.net/\n// @version      0.1\n// @description  shows how to use babel compiler\n// @author       You\n// @require      https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js\n// @require      https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js\n// @match        <$URL$>\n// ==/UserScript==\n\n/* jshint ignore:start */\nvar inline_src = (<><![CDATA[\n/* jshint ignore:end */\n/* jshint esnext: true */\n\n// Your code here...\n\n/* jshint ignore:start */\n]]\x3e</>).toString();\nvar c = babel.transform(inline_src);\neval(c.code);\n/* jshint ignore:end */"
