@@ -2,16 +2,18 @@ from hm import *
 import subprocess
 BASE_PATH = os.path.dirname(__file__)
 mkvtoolnix_path = os.path.join(BASE_PATH, 'mkvtoolnix')
+ffmpeg_path = os.path.join(BASE_PATH, 'ffmpeg-latest-win64-static')
 mkvextract = os.path.join(mkvtoolnix_path, 'mkvextract')
 mkvinfo = os.path.join(mkvtoolnix_path, 'mkvinfo')
 mkvmerge = os.path.join(mkvtoolnix_path, 'mkvmerge')
 mkvpropedit = os.path.join(mkvtoolnix_path, 'mkvpropedit')
+ffmpeg = os.path.join(ffmpeg_path, 'bin', 'ffmpeg')
 
 MediaInfo_CLI_Path = os.path.join(BASE_PATH, 'MediaInfo_CLI_0.7.91_Windows_i386')
 HandBrakeCLI = os.path.join(
     BASE_PATH, 'HandBrakeCLI-20161219204126-72e77ef-master-win-x86_64', 'HandBrakeCLI.exe ')
 
-video_ext = ['flv', 'mp4', 'rm', 'avi', 'rmvb','mpg','mpeg','mts','vdat','ts','3gp','webm']
+video_ext = ['flv', 'mp4', 'rm', 'avi', 'rmvb', 'mpg', 'mpeg', 'mts', 'vdat', 'ts', '3gp', 'webm']
 video_ext_mkv = video_ext + ['mkv']
 
 
@@ -46,13 +48,33 @@ def handbrake(src=None, width=1280):
                    '',
                    '',
                    ]
-        title=src.split('\\')
+        title = src.split('\\')
         title.reverse()
         os.system('@title %s' % ' - '.join(title))
         cmd = HandBrakeCLI + ' '.join(options)
         if os.system(cmd) == 0:
             rename(tmp, dst)
-            rename(src,converted)
+            rename(src, converted)
+
+
+def mkv2mp4(src=None):
+    if src == None:
+        src = os.getcwd()
+    if isdir(src):
+        for item in getFiles(src):
+            if isfile(item):
+                mkv2mp4(item)
+    elif isfile(src):
+        ext = getExt(src)
+        dst = src.replace(ext, 'mp4')
+        if ext.lower() == 'mkv':
+            tmp = src.replace(ext, 'tmp')
+            # tmp = src.replace(ext, 'mp4')
+            cmd = ffmpeg + r' -i "%s" -vcodec copy -acodec copy -f mp4 "%s"' % (src, tmp)
+            if os.system(cmd) == 0:
+                rename(tmp, dst)
+                if exists(dst):
+                    remove(src)
 
 
 def v2m(src=None):
