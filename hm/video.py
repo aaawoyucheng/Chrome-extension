@@ -94,6 +94,23 @@ def v2m(src=None):
                 rename(tmp, dst)
                 if exists(dst):
                     remove(src)
+def hevc(src=None):
+    if src == None:
+        src = os.getcwd()
+    if isdir(src):
+        for item in getFiles(src):
+            if isfile(item):
+                hevc(item)
+    elif 'hevc.mkv' not in src and isfile(src):
+        ext = getExt(src)
+        dst = src.replace(ext, 'hevc.mkv')
+        if ext.lower() in video_ext_mkv:
+            tmp = src.replace(ext, 'tmp')
+            cmd = ffmpeg + r' -i "%s" -vcodec hevc -acodec copy -f matroska "%s"' % (src, tmp)
+            if os.system(cmd) == 0:
+                rename(tmp, dst)
+                if exists(dst):
+                    remove(src)
 
 
 def submerge(src=None):
