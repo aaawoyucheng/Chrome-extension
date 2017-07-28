@@ -96,7 +96,7 @@ def v2m(src=None):
                     remove(src)
 
 
-def h265(src=None):
+def hevc(src=None):
     if src == None:
         src = os.getcwd()
     if isdir(src):
