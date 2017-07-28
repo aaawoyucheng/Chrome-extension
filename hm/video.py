@@ -14,7 +14,7 @@ HandBrakeCLI = os.path.join(
     BASE_PATH, 'HandBrakeCLI-20161219204126-72e77ef-master-win-x86_64', 'HandBrakeCLI.exe ')
 
 video_ext = ['flv', 'mp4', 'rm', 'avi', 'rmvb', 'mpg', 'mpeg', 'mts', 'vdat', 'ts', '3gp', 'webm']
-video_ext_mkv = video_ext + ['mkv']
+video_ext_mkv = video_ext.append('mkv')
 
 
 def handbrake(src=None, width=1280):
@@ -96,29 +96,40 @@ def v2m(src=None):
                     remove(src)
 
 
-def hevc(src=None):
+def hevc(src=None,delOld=False):
     if src == None:
         src = os.getcwd()
     if isdir(src):
         for item in getFiles(src):
             if isfile(item):
-                h265(item)
+                hevc(item)
     elif isfile(src):
         ext = getExt(src)
         dst = src.replace(ext, 'hevc.mkv')
+        if exists(dst):
+            return True
         if ext.lower() in video_ext:
-            tmp = src.replace(ext, 'tmp')
-            cmd =  ffmpeg+r' -y -i "%s" -vcodec hevc  -acodec copy -f matroska "%s"' % (src, tmp)
+            tmp = src.replace(ext, 'hevctmp')
+            cmd = ffmpeg + r' -y -i "%s" -vcodec hevc  -acodec copy -f matroska "%s"' % (src, tmp)
+            with open('tmp.txt','w') as w:
+                subprocess.Popen(cmd,stdout=w,stderr=subprocess.STDOUT)
+                with open('tmp.txt','r') as r:
+                    while True:
+                        try:
+                            for line in r.readlines():
+                                if ' Duration:' in line:
+                                    os.system('title %s %s'%(os.path.basename(src),line))
+                                #     print(re.match('Duration:.+,',line))
+                                print(line.replace('\n',''))
+                            w.write('')
+                            # time.sleep(1)
+                        except:
+                            pass
             if os.system(cmd) == 0:
                 rename(tmp, dst)
-                if exists(dst):
+                if exists(dst) and delOld:
                     remove(src)
-def info(src=None):
-    cmd =  ffmpeg+r' -i "%s"' % (src)
-    ext = getExt(src)
-    if ext.lower() in video_ext_mkv:
-        info=os.system(cmd)
-        print(info)
+
 
 def submerge(src=None):
     if src == None:
