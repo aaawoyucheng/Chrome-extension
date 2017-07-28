@@ -94,7 +94,9 @@ def v2m(src=None):
                 rename(tmp, dst)
                 if exists(dst):
                     remove(src)
-def hevc(src=None):
+
+
+def hevc(src=None, delOld=False):
     if src == None:
         src = os.getcwd()
     if isdir(src):
@@ -104,13 +106,30 @@ def hevc(src=None):
     elif 'hevc.mkv' not in src and isfile(src):
         ext = getExt(src)
         dst = src.replace(ext, 'hevc.mkv')
+        if exists(dst):
+            return True
         if ext.lower() in video_ext_mkv:
-            tmp = src.replace(ext, 'tmp')
-            cmd = ffmpeg + r' -i "%s" -vcodec hevc -acodec copy -f matroska "%s"' % (src, tmp)
-            if os.system(cmd) == 0:
-                rename(tmp, dst)
-                if exists(dst):
-                    remove(src)
+            tmp = src.replace(ext, 'hevctmp')
+            cmd = ffmpeg + r' -y -i "%s" -vcodec hevc -acodec copy -f matroska "%s"' % (src, tmp)
+            os.system('title %s' % (src))
+            with open('tmp.txt','wb') as w:
+                p = subprocess.Popen(cmd, shell=True, stdout=w, stderr=subprocess.STDOUT)
+                while True:
+                    with open(tmp,'rb') as r:
+                        try:
+                            print(r.readlines()[-1])
+                            w.truncate()
+                        except:
+                            pass
+                    if p.poll():
+                        break
+                    time.sleep(1)
+
+             # print(res.stdout.readlines())
+            # if os.system(cmd) == 0:
+            #     rename(tmp, dst)
+            #     if exists(dst) and delOld:
+            #         remove(src)
 
 
 def submerge(src=None):
